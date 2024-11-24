@@ -1,0 +1,48 @@
+name: Test Solutions
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        language: [python, javascript, typescript, golang, rust]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up ${{ matrix.language }}
+        run: |
+          if [ "${{ matrix.language }}" == "python" ]; then
+            uv sync
+          elif [ "${{ matrix.language }}" == "javascript" ]; then
+            npm install
+          elif [ "${{ matrix.language }}" == "typescript" ]; then
+            npm install
+          elif [ "${{ matrix.language }}" == "golang" ]; then
+            echo "Go setup not required"
+          elif [ "${{ matrix.language }}" == "rust" ]; then
+            echo "Rust setup not required"
+          fi
+
+      - name: Run tests
+        run: |
+          if [ "${{ matrix.language }}" == "python" ]; then
+            uv run pytest problems/**/python
+          elif [ "${{ matrix.language }}" == "javascript" ]; then
+            npm test problems/**/javascript
+          elif [ "${{ matrix.language }}" == "typescript" ]; then
+            npm test problems/**/typescript
+          elif [ "${{ matrix.language }}" == "golang" ]; then
+            go test ./problems/**/golang
+          elif [ "${{ matrix.language }}" == "rust" ]; then
+            cargo test
+          fi

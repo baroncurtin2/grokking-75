@@ -1,0 +1,14 @@
+[project]
+name = "grokking-75"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "hypothesis>=6.119.4",
+    "pytest>=8.3.3",
+    "pytest-asyncio>=0.24.0",
+]

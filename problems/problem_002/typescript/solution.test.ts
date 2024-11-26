@@ -1,23 +1,18 @@
 import { romanToInt } from './solution';
 import { test, expect, describe } from 'bun:test';
 
-
 describe('romanToInt', () => {
-    type Test = {
-        s: string;
-        expected: number;
-    }
+    type Test = [string, number];
 
     const tests: Test[] = [
-        {s: 'XLII', expected: 42},
-        {s: 'CXCIV', expected: 194},
-        {s: 'MMMCDXLIV', expected: 3444},
+        ['XLII', 42],
+        ['CXCIV', 194],
+        ['MMMCDXLIV', 3444],
     ];
 
     test.each(tests)(
         'for roman string = %s, should return %d',
-        (test: Test) => {
-            const {s, expected } = test;
+        (s, expected) => {
             expect(romanToInt(s)).toEqual(expected);
         }
     );
